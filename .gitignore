@@ -1,0 +1,10 @@
+# Ignore build artifacts
+dist/
+build/
+InformationGain.egg-info/
+setup.py
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
