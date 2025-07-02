@@ -1,27 +1,29 @@
-# informationGainLibrary
+# InformationGain Library
 
 This module helps you calculate **Information Gain** for categorical data using **entropy**.
 
 ---
 ## Installation
-pip install InformationGain==0.1.1
+```
+pip install InformationGain==1.0.0
+```
 
 ---
 ## Pypi
-https://pypi.org/project/InformationGain/0.1.0/
+https://pypi.org/project/InformationGain/1.0.0/
 ---
 ## Class
-`infoGain.calculate(data, target, fIndex=True)`
+`InfoGain.calculate(data, target, fIndex=True)`
 
 ---
 
 ## Parameters
 
-| Parameter | Type      | Description                                                      | Default |
-|-----------|-----------|------------------------------------------------------------------|---------|
-| `data`    | DataFrame | Dataset in pandas dataframe format                               | Required|
-| `target`  | String    | Output column (the target variable)                              | Required|
-| `fIndex`  | Boolean   | Specifies if the first column of the dataset is an index column  | True    |
+| Parameter | Type      | Description                                                      | Default  |
+|-----------|-----------|------------------------------------------------------------------|----------|
+| `data`    | DataFrame | Dataset in pandas dataframe format                               | Required |
+| `target`  | String    | Output column (the target variable)                              | Required |
+| `fIndex`  | Boolean   | Specifies if the first column of the dataset is an index column  | True     |
 
 ---
 
@@ -34,7 +36,7 @@ https://pypi.org/project/InformationGain/0.1.0/
 
 ## Example Usage
 ```python
-from informationGain import infoGain
+from InformationGain import InfoGain
 
 import pandas as pd
 
@@ -42,7 +44,7 @@ import pandas as pd
 data = pd.read_csv('your_dataset.csv')
 
 # Initialize
-ig = infoGain()
+ig = InfoGain()
 
 # Calculate Information Gain
 result = ig.calculate(data, target='Output', fIndex=True)
