@@ -3,7 +3,13 @@
 This module helps you calculate **Information Gain** for categorical data using **entropy**.
 
 ---
+## Installation
+pip install InformationGain==0.1.1
 
+---
+## Pypi
+https://pypi.org/project/InformationGain/0.1.0/
+---
 ## Class
 `infoGain.calculate(data, target, fIndex=True)`
 
