@@ -1,4 +1,4 @@
-# infoGain Library
+# informationGainLibrary
 
 This module helps you calculate **Information Gain** for categorical data using **entropy**.
 
