@@ -1,8 +1,8 @@
 import pandas as pd
 import numpy as np
 
-class infoGain():
 
+class InfoGain:
     def get_col(self):
         # returns column names 
         # if fIndex = True meaning if first col is index then remove from list 
@@ -15,15 +15,14 @@ class infoGain():
 
         return columns
 
-    def groupby(self,col):
+    def groupby(self, col: str):
         # Groups element based on unique elements
         # return a list of dataframes
         grouped = self.data.groupby(col)
         dfs = [group for _, group in grouped]
         return dfs
-        
 
-    def entropy(self, data):
+    def entropy(self, data: pd.DataFrame):
         # calculates entropy for each class 
         total_count = data[self.target].value_counts().sum()
 
@@ -38,15 +37,14 @@ class infoGain():
             if p > 0:
                 ent -= p * np.log2(p)
 
-
         return ent
 
-    def calculate(self, data,target,fIndex=True):
+    def calculate(self, data: pd.DataFrame, target: str, fIndex: bool = True):
 
         # check if data provided is pandas dataframe 
         if not isinstance(data, pd.DataFrame):
             raise ValueError("data must be a pandas dataframe")
-        self.data=data
+        self.data = data
 
         # check if data's fIndex is a boolean
         if not isinstance(fIndex, bool):
@@ -64,13 +62,13 @@ class infoGain():
         # grouping data in each column
         total_entropy = self.entropy(self.data)
 
-        igList =[]
+        igList = []
 
         for i in range(len(columns)):
             # calculates and returns a dictionary containing col & information gain 
             # selecting column 
             groups = self.groupby(columns[i])
-            
+
             weighted_entropy = 0
             # calculating weighted entropy
             for group in groups:
@@ -85,4 +83,3 @@ class infoGain():
 
         igDict = dict(zip(columns, igList))
         return igDict
-
