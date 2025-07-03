@@ -1,6 +1,6 @@
 # informationGainLibrary
 
-This module helps you calculate **Information Gain** for categorical data using **entropy**.
+This module helps you calculate **Information Gain** for categorical data.
 
 ---
 ## Installation
@@ -22,6 +22,7 @@ https://pypi.org/project/InformationGain/0.1.0/
 | `data`    | DataFrame | Dataset in pandas dataframe format                               | Required|
 | `target`  | String    | Output column (the target variable)                              | Required|
 | `fIndex`  | Boolean   | Specifies if the first column of the dataset is an index column  | True    |
+| `criteria`| String    | Splitting criteria to use: `"gini"` or `"entropy"`               | "gini"  |
 
 ---
 
