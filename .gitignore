@@ -3,6 +3,9 @@ dist/
 build/
 InformationGain.egg-info/
 setup.py
+readme.md
+test.py 
+new.py
 
 # Ignore Python cache
 __pycache__/
