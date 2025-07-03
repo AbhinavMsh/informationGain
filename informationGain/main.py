@@ -27,7 +27,7 @@ class infoGain():
         # calculates entropy for each class 
         total_count = data[self.target].value_counts().sum()
 
-        # initialize entroy to 0
+        # initialize entropy to 0
         ent = 0
 
         # getting every unique element in target class 
@@ -40,8 +40,27 @@ class infoGain():
 
 
         return ent
+    
+    def gini(self, data):
+        # calculates gini for each class 
+        total_count = data[self.target].value_counts().sum()
 
-    def calculate(self, data,target,fIndex=True):
+        # initialize gini to 0
+        gini = 0
+
+        # getting every unique element in target class 
+        # and calculating p for each output
+        class_counts = data[self.target].value_counts()
+        p = []
+        for count in class_counts:
+            p_class = count / total_count
+            p.append(p_class)
+        
+        gini = 1-(sum(x**2 for x in p))
+                    
+        return gini
+
+    def calculate(self, data,target,criteria='gini',fIndex=True):
 
         # check if data provided is pandas dataframe 
         if not isinstance(data, pd.DataFrame):
@@ -53,16 +72,21 @@ class infoGain():
             raise ValueError("fIndex must be a boolean")
         self.fIndex = fIndex
 
+        # check if criteria is valid
+        if criteria not in ['gini','entropy']:
+            raise ValueError(f"Invalid criteria value, must be gini or entropy")
+        self.criteria = criteria
         # check if target col in data
         if target not in data.columns:
             raise ValueError(f"Target column '{target}' not found in data")
         self.target = target
 
+
         # Get Columns name 
         columns = self.get_col()    
 
-        # grouping data in each column
-        total_entropy = self.entropy(self.data)
+        # calculating impurity 
+        total_impurity = self.entropy(self.data) if self.criteria == 'entropy' else self.gini(self.data)
 
         igList =[]
 
@@ -71,18 +95,23 @@ class infoGain():
             # selecting column 
             groups = self.groupby(columns[i])
             
-            weighted_entropy = 0
+            weighted_impurity = 0
+            
             # calculating weighted entropy
             for group in groups:
                 weight = group.shape[0] / self.data.shape[0]
-                weighted_entropy += weight * self.entropy(group)
+
+                weighted_impurity += weight * self.entropy(group) if self.criteria == 'entropy' else weight * self.gini(group)
+
             #calculating info gain
-            ig = total_entropy - weighted_entropy
+            ig = total_impurity - weighted_impurity
+
             igList.append(ig)
 
-        # Creating dictionary
+        
         igList = [float(ig) for ig in igList]
 
+        # Creating dictionary
         igDict = dict(zip(columns, igList))
         return igDict
 
